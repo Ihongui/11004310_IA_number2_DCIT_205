@@ -1,7 +1,8 @@
 const express = require("express");
-const ajouterUtilisateur = require("../controller/utilisateur");
-const route = express.Router();
+const Router = express.Router();
 
-Router.route("/utilisatuers").post(ajouterUtilisateur);
+// Define your route handlers
+Router.route("/utilisateurs").post(ajouterUtilisateur);
 
+// Export the router
 module.exports = Router;

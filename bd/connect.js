@@ -6,16 +6,24 @@ function connecter(url, callback) {
   if (client == null) {
     client = new MongoClient(url);
 
-    client.connect((erreur) => {
-      if (erreur) {
+    client.connect((error) => {
+      if (error) {
         client = null;
-        callback(erreur);
+        callback(error);
       } else {
         callback();
       }
     });
   } else {
     callback();
+  }
+}
+
+function dbOk(error, database) {
+  if (error) {
+    console.error("Erreur lors de la connexion à la base de données :", error);
+  } else {
+    console.log("Connecté avec succès à la base de données");
   }
 }
 
@@ -31,14 +39,3 @@ function fermerconnexion() {
 }
 
 module.exports = { connecter, bd, fermerconnexion };
-
-const mongodb = require("./mongodb");
-
-mongodb.connecter("mongodb://localhost:27017", (erreur) => {
-  if (erreur) {
-    console.error("Erreur de connexion :", erreur);
-  } else {
-    console.log("Connecté avec succès à MongoDB");
-    mongodb.fermerconnexion();
-  }
-});
